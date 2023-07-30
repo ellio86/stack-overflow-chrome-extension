@@ -5,7 +5,9 @@
     "manifest_version": 3,
     "permissions": [
        "activeTab",
-       "scripting"
+       "scripting",
+       "tabs",
+       "storage"
     ],
     "background": {
        "service_worker": "scripts/background.js"
@@ -16,9 +18,9 @@
     },
     "content_scripts": [
       {
-        "matches": ["https://*.stackexchange.com/que#*", "https://*.stackoverflow.com/questions/*"],
+        "matches": ["https://*.stackexchange.com/questions/*", "https://*.stackoverflow.com/questions/*"],
         "css": ["style/alert.css"],
-        "js": ["scripts/alert.js"]
+        "js": ["scripts/alertManager.js"]
       }
     ]
  }
