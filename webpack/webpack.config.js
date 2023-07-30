@@ -8,7 +8,7 @@ module.exports = {
       popup: path.resolve(__dirname, "..", "src", "popup.ts"),
    },
    output: {
-      path: path.join(__dirname, "../dist"),
+      path: path.join(__dirname, "../dist/scripts"),
       filename: "[name].js",
    },
    resolve: {
@@ -25,7 +25,8 @@ module.exports = {
    },
    plugins: [
       new CopyPlugin({
-         patterns: [{from: ".", to: ".", context: "public"}]
+         // The output gets set to /dist/scripts for the ts above, so copy from public to the parent folder of ./dist/scripts (dist)
+         patterns: [{from: ".", to: "../", context: "public"}]
       }),
    ],
 };
