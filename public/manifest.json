@@ -13,5 +13,12 @@
     "action": {
       "default_popup": "html/popup.html",
       "default_icon": "content/icon.png"
-    }
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://*.stackexchange.com/que#*", "https://*.stackoverflow.com/questions/*"],
+        "css": ["style/alert.css"],
+        "js": ["scripts/alert.js"]
+      }
+    ]
  }
