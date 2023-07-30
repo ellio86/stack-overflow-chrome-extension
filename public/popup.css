@@ -1,0 +1,22 @@
+body {
+    background: grey;
+    color: white;
+    min-width: 500px;
+}
+
+.main {
+    padding: 1rem;
+}
+
+.btn {
+    margin-top: 0.25rem;
+}
+
+.header {
+    background: darkslategrey;
+    padding: 1rem 1rem 0.25rem 1rem;
+}
+
+.has-subtitle {
+    margin-bottom: 0;
+}

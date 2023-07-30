@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+       "strict": false,
+       "module": "commonjs",
+       "target": "es6",
+       "esModuleInterop": true,
+       "sourceMap": true,
+       "rootDir": "src",
+       "outDir": "dist/js",
+       "noImplicitAny": false,
+       "noEmitOnError": true,
+       "typeRoots": [ "node_modules/@types" ]
+    }
+ }
