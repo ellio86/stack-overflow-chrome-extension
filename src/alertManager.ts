@@ -5,32 +5,48 @@ class AlertManager {
     constructor(threadDateCreated: string) {
         this.threadDateCreated = threadDateCreated;
         this.addEventListeners();
-        this.loadChromeSettings();
+    }
+
+    /**
+     * Async function to be run after instantiating an alert manager.
+     * Loads chrome settings and checks the page for dates.
+     */
+    public async init() {
+        await this.loadChromeSettings();
         this.checkDates();
     }
 
+    /**
+     * Adds event listeners - namely chrome.runtime.onMessage
+     */
     private addEventListeners() {
         // Listen for messages from the popup
-        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             if (message.action === 'settingsUpdated') {
-            // Retrieve the updated settings from local storage
-            chrome.storage.local.get(['yearSetting'], (result) => {
-                this.applySettings(result);
-            });
+
+                // Retrieve the updated settings from sync storage
+                const result = await chrome.storage.sync.get(['yearSetting'])
+                this.applySettings(result.yearSetting);
             }
         });
     }
 
-    private applySettings(settings) {
-        if(settings.yearSetting !== undefined) {
-            this.yearSetting = +settings.yearSetting;
+    /**
+     * Applies settings from parameters
+     * @param yearSetting yearSetting value to apply
+     */
+    private applySettings(yearSetting) {
+        if(yearSetting.value !== undefined) {
+            this.yearSetting = +yearSetting.value;
         }
     }
 
-    private loadChromeSettings() {
-        chrome.storage.local.get(['yearSetting'], (result) => {
-            this.applySettings(result);
-        });
+    /**
+     * Loads chrome settings from sync storage
+     */
+    private async loadChromeSettings() {
+        const result = await chrome.storage.sync.get(['yearSetting']);
+        this.applySettings(result.yearSetting);
     }
 
     /**
@@ -45,7 +61,8 @@ class AlertManager {
      */
     private checkDates() {
         const now = new Date();
-        if(new Date(this.threadDateCreated).getFullYear() <= now.getFullYear() - this.yearSetting) {
+        console.log(`Year Detected=${new Date(this.threadDateCreated).getFullYear()}, ${this.yearSetting} years ago=${now.getFullYear() - this.yearSetting}`)
+        if(new Date(this.threadDateCreated).getFullYear() < now.getFullYear() - this.yearSetting) {
             this.createAlert();
         }
     }
@@ -65,6 +82,10 @@ class Alert {
 
     }
 }
+// Async statements can only be executed from a module, export {} makes the file a module.
+export {}
 
 const threadCreationDate = document.querySelectorAll<HTMLTimeElement>("#content time")[0].dateTime;
 const alertManager = new AlertManager(threadCreationDate);
+await alertManager.init();
+
