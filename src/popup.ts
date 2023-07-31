@@ -1,19 +1,30 @@
 class Popup {
     dom: {
         root: HTMLDivElement,
-        yearSetting: HTMLInputElement
-        saveSettingsButton: HTMLButtonElement
+        yearSetting: HTMLInputElement,
+        saveSettingsButton: HTMLButtonElement,
+        positiveFeedback: HTMLSpanElement,
+        negativeFeedback: HTMLSpanElement,
     }
 
     constructor(root: HTMLDivElement) {
         this.dom = {
             root: root,
             yearSetting: root.querySelector<HTMLInputElement>("#yearSetting"),
-            saveSettingsButton: root.querySelector<HTMLButtonElement>("#saveSettingsButton")
+            saveSettingsButton: root.querySelector<HTMLButtonElement>("#saveSettingsButton"),
+            positiveFeedback: root.querySelector<HTMLSpanElement>("#positiveFeedback"),
+            negativeFeedback: root.querySelector<HTMLSpanElement>("#negativeFeedback"),
         }
+
+        $(this.dom.positiveFeedback).hide();
+        $(this.dom.negativeFeedback).hide();
+
         this.addEventListeners();
     }
 
+    /**
+     * Holds asynchronous init tasks that cannot be executed in the constructor
+     */
     public async init() {
         await this.loadChromeSettings();
     }
@@ -38,17 +49,44 @@ class Popup {
     }
 
     /**
+     * Creates a feedback message to be displayed to the user
+     * @param type positive | negative
+     * @param message feedback message
+     */
+    private createFeedback(type: string, message: string) {
+        switch (type) {
+            case "positive":
+                this.dom.positiveFeedback.innerHTML = message;
+                this.dom.positiveFeedback.style.display = "block";
+                $(this.dom.positiveFeedback).delay(3000).fadeOut(1000);
+                break;
+
+            case "negative":
+                this.dom.negativeFeedback.innerHTML = message;
+                this.dom.negativeFeedback.style.display = "block";
+                break;
+
+            default: 
+                console.error(`Feedback type ${type} unsupported!`)
+        }
+    }
+
+    /**
      * Saves settings to chrome sync storage 
      */
     private async saveChromeSettings() {
         // Save settings
         await chrome.storage.sync.set({ yearSetting: {value: this.dom.yearSetting.value}});
         
+        // Give the user a feedback message
+        this.createFeedback("positive", "Successfully updated settings");
+
         // Notify the content script about the changes
         const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-        await chrome.tabs.sendMessage(tabs[0].id, { action: 'settingsUpdated' });
+        await chrome.tabs.sendMessage(tabs[0].id, { action: 'settingsUpdated' }).catch(() => {});
     }
 }
+
 // Async statements can only be executed from a module, export {} makes the file a module.
 export {}
 

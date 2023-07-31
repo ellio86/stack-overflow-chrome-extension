@@ -23,7 +23,6 @@ class AlertManager {
         // Listen for messages from the popup
         chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             if (message.action === 'settingsUpdated') {
-
                 // Retrieve the updated settings from sync storage
                 const result = await chrome.storage.sync.get(['yearSetting'])
                 this.applySettings(result.yearSetting);
