@@ -1,6 +1,6 @@
 class AlertManager {
     threadDateCreated: string;
-    yearSetting: number = 5;
+    yearSetting: number = 10;
 
     constructor(threadDateCreated: string) {
         this.threadDateCreated = threadDateCreated;
