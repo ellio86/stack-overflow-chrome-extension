@@ -1,5 +1,5 @@
 {
-  "name": "stack-overflow-extension",
+  "name": "stack-overflow-chrome-extension",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -14,9 +14,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ellio86/stack-overflow-extension/issues"
+    "url": "https://github.com/ellio86/stack-overflow-chrome-extension/issues"
   },
-  "homepage": "https://github.com/ellio86/stack-overflow-extension#readme",
+  "homepage": "https://github.com/ellio86/stack-overflow-chrome-extension#readme",
   "devDependencies": {
     "@types/chrome": "^0.0.242",
     "@types/jquery": "^3.5.16",
