@@ -1,6 +1,9 @@
 # Stack overflow chrome extension
 ## Summary
-This extension will check the current page, and if the current page is a stack overflow page it will create an alert on the page to let the user know that the thread that they are viewing may be out of date. It will also provide a link to the latest documentation for the language being viewed and also a link to the most recent answer of the thread, for if the user wanted to skip straight to it.
+This extension will check the current page, and if the current page is a stack overflow page it will create an alert on the page to let the user know that the thread that they are viewing may be out of date. 
+
+\[planned]
+It will also provide a link to the latest documentation for the language being viewed and also a link to the most recent answer of the thread, for if the user wanted to skip straight to it.
 
 ## Screenshots
 ![chrome_dkcxhdd3CN](https://github.com/ellio86/stack-overflow-chrome-extension/assets/55849851/9bb76fc0-de7e-4f47-98c8-e7fec5e0e622)
