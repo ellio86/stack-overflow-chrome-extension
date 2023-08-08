@@ -19,7 +19,6 @@
     "content_scripts": [
       {
         "matches": ["https://*.stackexchange.com/questions/*", "https://*.stackoverflow.com/questions/*"],
-        "css": ["style/alert.css"],
         "js": ["scripts/alertManager.js"]
       }
     ]

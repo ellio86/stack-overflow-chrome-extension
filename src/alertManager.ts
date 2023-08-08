@@ -52,7 +52,12 @@ class AlertManager {
      * Creates alert to be shown to the user
      */
     private createAlert() {
-        alert(`This thread could be outdated! It is over ${this.yearSetting} years old. Proceed with caution!`);
+        const alert = new Alert(this.yearSetting);
+        let elementToInsertAfter = document.querySelector<Element>("#announcement-banner")
+        if(!elementToInsertAfter) {
+            elementToInsertAfter = document.querySelectorAll<Element>("body script")[0]
+        } 
+        elementToInsertAfter.parentElement.insertBefore(alert.dom.alertContainer, elementToInsertAfter);
     }
 
     /**
@@ -68,10 +73,29 @@ class AlertManager {
 }
 
 class Alert {
-    dom: {}
+    dom: {
+        alertContainer: HTMLDivElement,
+        alertBody: HTMLDivElement
+        alertText: HTMLDivElement
+    }
 
-    constructor() {
-        this.dom = {}
+    constructor(yearSetting: number) {
+        this.dom = {
+            alertContainer: document.createElement("div"),
+            alertBody: document.createElement("div"),
+            alertText: document.createElement("div")
+        }
+        this.dom.alertContainer.classList.add("js-announcement-banner", "ff-sans", "fs-body1", "py2", "s-notice", "s-notice__info", "s-notice__important");
+        this.dom.alertBody.classList.add("d-flex", "jc-space-between", "wmx12", "mx-auto", "px16", "py8");
+        this.dom.alertText.classList.add("flex--item", "mr12", "fw-bold");
+
+        this.dom.alertContainer.style.background = "red";
+        this.dom.alertContainer.style.border = "darkred";
+
+        this.dom.alertText.innerHTML = `This thread could be outdated! It is over ${yearSetting} years old. Proceed with caution!`;
+        
+        this.dom.alertBody.appendChild(this.dom.alertText);
+        this.dom.alertContainer.appendChild(this.dom.alertBody);
     }
 
     /**
