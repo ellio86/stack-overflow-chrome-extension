@@ -2,6 +2,7 @@ class Popup {
     dom: {
         root: HTMLDivElement,
         yearSetting: HTMLInputElement,
+        mostRecentPostType: HTMLSelectElement,
         saveSettingsButton: HTMLButtonElement,
         positiveFeedback: HTMLSpanElement,
         negativeFeedback: HTMLSpanElement,
@@ -11,6 +12,7 @@ class Popup {
         this.dom = {
             root: root,
             yearSetting: root.querySelector<HTMLInputElement>("#yearSetting"),
+            mostRecentPostType: root.querySelector<HTMLSelectElement>("#mostRecentPostType"),
             saveSettingsButton: root.querySelector<HTMLButtonElement>("#saveSettingsButton"),
             positiveFeedback: root.querySelector<HTMLSpanElement>("#positiveFeedback"),
             negativeFeedback: root.querySelector<HTMLSpanElement>("#negativeFeedback"),
@@ -33,9 +35,13 @@ class Popup {
      * Load settings from chrome sync storage
      */
     private async loadChromeSettings() {
-        const result = await chrome.storage.sync.get(['yearSetting']);
-        if (result.yearSetting !== undefined) {
-            this.dom.yearSetting.value = result.yearSetting.value;
+        const yearSettingResult = await chrome.storage.sync.get(['yearSetting']);
+        if (yearSettingResult.yearSetting !== undefined) {
+            this.dom.yearSetting.value = yearSettingResult.yearSetting.value;
+        }
+        const mostRecentPostTypeResult = await chrome.storage.sync.get(['mostRecentPostType']);
+        if (mostRecentPostTypeResult.mostRecentPostType !== undefined) {
+            this.dom.mostRecentPostType.value = mostRecentPostTypeResult.mostRecentPostType.value;
         }
     }
 
@@ -76,7 +82,7 @@ class Popup {
      */
     private async saveChromeSettings() {
         // Save settings
-        await chrome.storage.sync.set({ yearSetting: {value: this.dom.yearSetting.value}});
+        await chrome.storage.sync.set({ yearSetting: {value: this.dom.yearSetting.value}, mostRecentPostType: {value: this.dom.mostRecentPostType.value}});
         
         // Give the user a feedback message
         this.createFeedback("positive", "Successfully updated settings");

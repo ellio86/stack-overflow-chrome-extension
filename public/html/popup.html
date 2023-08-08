@@ -19,7 +19,15 @@
         <div id="main" class="main">
             <!-- Settings -->
             <label for="yearSetting">Minimum thread age for alert to appear</label>
-            <input id="yearSetting" type="number" class="form-control" value="5" />
+            <input id="yearSetting" type="number" class="form-control" value="10" />
+
+            <label for="mostRecentPostType">Go to most recent post type</label>
+            <select id="mostRecentPostType" class="form-control" value="?answertab=modifieddesc#tab-top">
+                <option value="?answertab=modifieddesc#tab-top">Go to most recently modified answer</option>
+                <option value="?answertab=createddesc#tab-top">Go to most recently created answer</option>
+            </select>
+
+
             <button id="saveSettingsButton" class="btn btn-primary">Save settings</button>
 
             <div class="feedback">
