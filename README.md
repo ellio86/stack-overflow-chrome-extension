@@ -16,7 +16,7 @@ It will also provide a link to the latest documentation for the language being v
 ## First time setup
 **Ensure that you are using the correct version of node (check with `nvm list`, change with `nvm use [version]`)**
 
-Run `npm install` in a cmd window at the root of the project; this will create the `node_modules` folder with our (you guessed it) node modules. Use `npm ic` if you're having caching problems during development.
+Run `npm install` in a cmd window at the root of the project; this will create the `node_modules` folder with our node modules we just installed in. Use `npm ic` if you're having caching problems during development.
 
 ## Building the extension
 **Ensure that you are using the correct version of node (check with `nvm list`, change with `nvm use [version]`)**
