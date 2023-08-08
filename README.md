@@ -9,17 +9,16 @@ It will also provide a link to the latest documentation for the language being v
 ![chrome_dkcxhdd3CN](https://github.com/ellio86/stack-overflow-chrome-extension/assets/55849851/9bb76fc0-de7e-4f47-98c8-e7fec5e0e622)
 ![chrome_yxbbxnw6Zt](https://github.com/ellio86/stack-overflow-chrome-extension/assets/55849851/5dd5eb3d-36da-4d57-b5b7-310ff6ed28e8)
 
-
-
-
 # Dev notes
 ## Requirements
 - Node js >= v18.13.0
 
 ## Building the extension
-First, run an `npm install` in the root of the project to make sure that the node_modules are present and up to date. Use `npm ic` if you're having caching problems during development.
+**Ensure that you are using the correct version of node (check with `nvm list`, change with `nvm use [version]`)**
 
-Then run `npm run build` and the `dist` folder will be generated. Contents from the public folder are copied over and contents of the src are compiled into js and output to the dist file
+Run `npm install` in a cmd window at the root of the project; this will create the `node_modules` folder with our (you guessed it) node modules. Use `npm ic` if you're having caching problems during development.
+
+Run `npm run build` and the `dist` folder will be generated. Contents from the `public` folder are copied over and contents of the `src` folder are compiled from TypeScript into JavaScript and output to the `dist` folder.
 
 ## Adding the extension to chrome
 Navigate to chrome://extensions in a chromium browser. Click load unpacked and point it towards the dist folder generated above. 
